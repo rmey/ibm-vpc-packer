@@ -1,0 +1,76 @@
+- hosts: all
+  tasks:
+  - name: Update all packages
+    apt:
+      update_cache: yes
+      upgrade: dist
+
+  - name: Unconditionally reboot the machine with all defaults
+    reboot:
+      post_reboot_delay: 60
+
+  - name: Wait for system to become reachable again
+    wait_for_connection:
+      delay: 20
+      timeout: 300        
+  
+  - name: install build-essential
+    apt:
+      name: build-essential
+      state: present
+  
+  - name: install Kernel Headers
+    apt:
+      name: "linux-headers-{{ ansible_kernel }}"    
+      state: present
+ 
+  # https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#prepare-ubuntu
+  #- name: remove old signing key
+  #  ansible.builtin.apt_key:
+  #    id: 0x7fa2af80
+  #    state: absent
+
+  - name: Download CUDA keyring package
+    ansible.builtin.get_url:
+      url: "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb"
+      dest: "/tmp/cuda-keyring_1.1-1_all.deb"
+
+  - name: Install CUDA keyring package
+    ansible.builtin.apt:
+      deb: "/tmp/cuda-keyring_1.1-1_all.deb"
+      state: present
+
+  - name: Update Cache
+    apt:
+      update_cache: yes    
+  
+  - name: install cuda-toolkit
+    apt:
+      name: cuda-toolkit
+      state: present
+  
+  - name: install nvidia-gds
+    apt:
+      name: nvidia-gds
+      state: present
+
+  - name: reboot
+    reboot:
+      post_reboot_delay: 60
+
+  - name: Wait for system to become reachable again
+    wait_for_connection:
+      delay: 20
+      timeout: 300
+  
+  - name: Add CUDA path to .bashrc
+    ansible.builtin.lineinfile:
+      path: ~/.bashrc
+      line: 'export PATH=/usr/local/cuda-12.6/bin${PATH:+:${PATH}}'
+      create: yes             
+
+  - name: Add LD_LIBRARY_PATH path to .bashrc
+    ansible.builtin.lineinfile:
+      path: ~/.bashrc
+      line: 'export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}'
+      create: yes

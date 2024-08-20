@@ -1,0 +1,19 @@
+######################################################
+# adopt the variables below!
+# API KEY 
+export IBM_API_KEY=""
+# ID of the IBM Cloud Resource Group to be used
+export IBM_CLOUD_RESOURCE_GROUP_ID=""
+# Subnet ID of an existing IBM Cloud VPC used to create
+export IBM_CLOUD_VPC_SUBNET_ID=""
+# base image to be used
+export IBM_CLOUD_VPC_BASE_IMAGE="ibm-ubuntu-22-04-4-minimal-amd64-3"
+# IBM Cloud VSI profile
+export IBM_CLOUD_VPC_VSI_PROFILE="bx2-2x8"
+######################################################
+# no adoption needed
+export ANSIBLE_INVENTORY_FILE="provisioner/hosts"
+export ANSIBLE_HOST_KEY_CHECKING=False
+export PACKER_LOG=1
+export PACKER_LOG_PATH="packerlog/packerlog.txt"
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
