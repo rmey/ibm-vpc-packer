@@ -27,8 +27,9 @@ export IBM_CLOUD_VPC_BASE_IMAGE="ibm-ubuntu-22-04-4-minimal-amd64-3"
 # IBM Cloud VSI profile
 export IBM_CLOUD_VPC_VSI_PROFILE="gx2-8x64x1v100"
 ```
-3. init the packer environment
+3. source .env file and init the packer environment
 ```bash
+source .env
 packer init -upgrade templates/build.vpc.ubuntu.pkr.hcl
 ```
 4. validate the packer template
