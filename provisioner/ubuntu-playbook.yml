@@ -70,3 +70,18 @@
       path: ~/.bashrc
       line: 'export LD_LIBRARY_PATH=/usr/local/cuda-12.6/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}'
       create: yes
+
+   - name: install python3-pip
+     apt:
+       name: python3-pip
+       state: present  
+   
+   - name: Install Pytorch python package
+     ansible.builtin.pip:
+       name: torch
+   
+   - name: Install opencv-python-headless python package
+     ansible.builtin.pip:
+       name: opencv-python-headless
+   
+
