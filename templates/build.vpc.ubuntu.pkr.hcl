@@ -62,7 +62,7 @@ source "ibmcloud-vpc" "ubuntu" {
   ssh_port     = 22
   ssh_timeout  = "15m"
   ssh_read_write_timeout = "5m" # Allow reboots  
-  timeout = "30m"
+  timeout = "60m"
 }
 
 build {
