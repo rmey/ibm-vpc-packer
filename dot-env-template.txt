@@ -4,7 +4,7 @@
 export IBM_API_KEY=""
 # ID of the IBM Cloud Resource Group to be used
 export IBM_CLOUD_RESOURCE_GROUP_ID=""
-# Subnet ID of an existing IBM Cloud VPC used to create
+# Subnet ID of an existing IBM Cloud VPC used by packer to create the temporary VSI during build phase
 export IBM_CLOUD_VPC_SUBNET_ID=""
 # base image to be used
 export IBM_CLOUD_VPC_BASE_IMAGE="ibm-ubuntu-22-04-4-minimal-amd64-3"
