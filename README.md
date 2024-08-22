@@ -1,10 +1,10 @@
 # Example for Packer with IBM Cloud VPC for custom Images
-This is an example repo to have consistent custom Image on IBM Cloud VPC for NVIDIA CUDA Drivers and other components using Packer and Ansible.
+This is an example repo to have consistent custom Image on IBM Cloud VPC for NVIDIA CUDA Drivers and other components on Ubuntu 22.04 using Packer and Ansible.
 
 ## Prerequisites
 * IBM Cloud API Key with supported permissions
 * IBM Cloud VPC with at least one subnet
-* Linux Developer machine with Packer, Ansible and packer ansible plugin installed
+* Linux/Mac Developer machine with Packer, Ansible installed
 
 ## How to to use
 Review the [Packer template](templates/build.vpc.ubuntu.pkr.hcl) and the [Ansible Playbook](provisioner/ubuntu-playbook.yml). The Ansible playbook is called from Packer and will install several components and drivers including reboots. When finished Packer will create a custom IBM Cloud VPC Image.

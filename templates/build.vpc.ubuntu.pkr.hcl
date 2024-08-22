@@ -4,6 +4,10 @@ packer {
       version = ">=v3.2.5"
       source  = "github.com/IBM/ibmcloud"
     }
+    ansible = {
+      version = ">= 1.1.1"
+      source  = "github.com/hashicorp/ansible"
+    }
   }
 }
 
@@ -55,7 +59,7 @@ source "ibmcloud-vpc" "ubuntu" {
   vsi_profile         = "${var.profile}"
   vsi_interface       = "public"
   vsi_user_data_file  = ""
-  image_name          = "packer-${local.timestamp}"
+  image_name          = "ubuntu-cuda-${local.timestamp}"
 
   communicator = "ssh"
   ssh_username = "root"
