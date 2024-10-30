@@ -3,5 +3,8 @@
 provisioner/hosts
 # exclude logs
 packerlog/*
+# exclude generated ssh keys
 **/*ssh_keys*/
+# exclude .vscode prefs
+.vscode
 
