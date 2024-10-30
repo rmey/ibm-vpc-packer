@@ -24,7 +24,7 @@ export IBM_CLOUD_RESOURCE_GROUP_ID=""
 # Subnet ID of an existing IBM Cloud VPC used by packer to create the temporary VSI during build phase
 export IBM_CLOUD_VPC_SUBNET_ID=""
 # base image to be used
-export IBM_CLOUD_VPC_BASE_IMAGE="ibm-ubuntu-22-04-4-minimal-amd64-3"
+export IBM_CLOUD_VPC_BASE_IMAGE="ibm-ubuntu-24-04-6-minimal-amd64-1"
 # IBM Cloud VSI profile
 export IBM_CLOUD_VPC_VSI_PROFILE="gx2-8x64x1v100"
 # specific packer build source for IBM Cloud VPC OS specific build see https://github.com/IBM/packer-plugin-ibmcloud/tree/master/examples
@@ -32,7 +32,7 @@ export IBM_CLOUD_VPC_PACKER_BUILD_SRC="source.ibmcloud-vpc.ubuntu"
 # Path to ansible playbook
 export ANSIBLE_PLAYBOOK="provisioner/ubuntu-cuda-12.6.yaml"
 # IMAGE_PREFIX before timestamp for custom image to be created 
-export IMAGE_PREFIX="ubuntu2204"
+export IMAGE_PREFIX="ubuntu-cuda"
 # export private or public network SSH connection
 export SSH_CONNECTION="public" 
 ```
