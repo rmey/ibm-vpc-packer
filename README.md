@@ -7,7 +7,7 @@ This is an example repo to have consistent custom Image on IBM Cloud VPC for NVI
 * Linux/Mac machine or Docker Container with Hashicorp Packer and Ansible installed
 
 ## How to to use
-Review the generic [Packer template](templates/build.vpc.generic.pkr.hcl) and the [Ansible Playbook](pplaybooks/ubuntu-playbook.yml). The Ansible playbook is called from Packer via an variable name and will install several components and drivers including reboots. When finished Packer will create a custom IBM Cloud VPC Image, in the concrete exampple Ubuntu 24.04. LTS with latest NVIDIA CUDA support and NVIDIA Docker support.
+Review the generic [Packer template](templates/build.vpc.generic.pkr.hcl) and the [Ansible Playbook](playbooks/ubuntu-playbook.yml). The Ansible playbook is called from Packer via an variable name and will install several components and drivers including reboots. When finished Packer will create a custom IBM Cloud VPC Image, in the concrete exampple Ubuntu 24.04. LTS with latest NVIDIA CUDA support and NVIDIA Docker support.
 
 1. clone repo and create create a .env file
 ```bash
