@@ -1,0 +1,7 @@
+.env
+# exclude Ansible hosts file, will be created by packer
+provisioner/hosts
+# exclude logs
+packerlog/*
+**/*ssh_keys*/
+

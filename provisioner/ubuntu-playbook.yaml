@@ -1,0 +1,117 @@
+- hosts: all
+  tasks:
+
+  - name: Update Cache
+    ansible.builtin.apt:
+      update_cache: yes
+  
+  - name: Upgrade all packages
+    ansible.builtin.apt:
+      upgrade: full
+  
+  - name: Blacklist nouveau driver
+    ansible.builtin.copy:
+      content: "blacklist nouveau\n"
+      dest: /etc/modprobe.d/blacklist-nvidia-nouveau.conf
+  
+  - name: Update initramfs
+    ansible.builtin.command:
+      cmd: update-initramfs -u
+
+  - name: 1. reboot after overall upgrade
+    reboot:
+      post_reboot_delay: 60
+
+  - name: Wait for system to become reachable again
+    wait_for_connection:
+      delay: 20
+      timeout: 300     
+  
+  - name: Update Cache
+    ansible.builtin.apt:
+      update_cache: yes
+
+  - name: install build-essential
+    apt:
+      name: build-essential
+      state: present
+     
+  - name: Install ubuntu-drivers-common
+    ansible.builtin.apt:
+      name: ubuntu-drivers-common
+      state: present
+
+  - name: Wait for 20 seconds
+    ansible.builtin.wait_for:
+      timeout: 20
+
+  - name: Install NVIDIA driver
+    ansible.builtin.apt:
+      name: nvidia-driver-550
+      state: present
+
+  - name: 2. reboot after driver install
+    reboot:
+      post_reboot_delay: 60
+
+  - name: Wait for system to become reachable again
+    wait_for_connection:
+      delay: 20
+      timeout: 300                
+    
+  - name: Download CUDA keyring package
+    ansible.builtin.get_url:
+      url: "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb"
+      dest: "/tmp/cuda-keyring_1.1-1_all.deb"
+
+  - name: Install CUDA keyring package
+    ansible.builtin.apt:
+      deb: "/tmp/cuda-keyring_1.1-1_all.deb"
+      state: present
+
+  - name: Update Cache
+    ansible.builtin.apt:
+      update_cache: yes    
+
+  - name: install cuda-toolkit
+    apt:
+      name: cuda-toolkit-12-5
+      state: present
+    
+  - name: 3. reboot after CUDA
+    reboot:
+      post_reboot_delay: 60
+
+  - name: Wait for system to become reachable again
+    wait_for_connection:
+      delay: 20
+      timeout: 300
+  
+  - name: Add CUDA path to .bashrc
+    ansible.builtin.lineinfile:
+      path: ~/.bashrc
+      line: 'export PATH=/usr/local/cuda-12.5/bin${PATH:+:${PATH}}'
+      create: yes             
+
+  - name: Add LD_LIBRARY_PATH path to .bashrc
+    ansible.builtin.lineinfile:
+      path: ~/.bashrc
+      line: 'export LD_LIBRARY_PATH=/usr/local/cuda-12.5/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}'
+      create: yes
+
+  - name: install python3-pip
+    apt:
+      name: python3-pip
+      state: present  
+
+  - name: Install Pytorch python package
+    ansible.builtin.pip:
+      name: numpy
+
+  - name: Install Pytorch python package
+    ansible.builtin.pip:
+      name: torch
+   
+  - name: Install opencv-python-headless python package
+    ansible.builtin.pip:
+      name: opencv-python-headless
