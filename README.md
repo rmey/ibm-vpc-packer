@@ -29,10 +29,10 @@ export IBM_CLOUD_VPC_BASE_IMAGE="ibm-ubuntu-22-04-4-minimal-amd64-3"
 export IBM_CLOUD_VPC_VSI_PROFILE="gx2-8x64x1v100"
 # specific packer build source for IBM Cloud VPC OS specific build see https://github.com/IBM/packer-plugin-ibmcloud/tree/master/examples
 export IBM_CLOUD_VPC_PACKER_BUILD_SRC="source.ibmcloud-vpc.ubuntu"
-# Packer template PATH 
-export ANSIBLE_PLAYBOOK="playbooks/ubuntu-playbook.yaml"
+# Path to ansible playbook
+export ANSIBLE_PLAYBOOK="provisioner/ubuntu-cuda-12.6.yaml"
 # IMAGE_PREFIX before timestamp for custom image to be created 
-export IMAGE_PREFIX="ubuntu-cuda"
+export IMAGE_PREFIX="ubuntu2204"
 # export private or public network SSH connection
 export SSH_CONNECTION="public" 
 ```
